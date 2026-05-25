@@ -27,6 +27,7 @@ NS = {
 }
 
 FRONT_KEYS = {"摘要", "摘 要", "ABSTRACT", "目录", "目 录"}
+BODY_TEXT_STYLES = {"aff3", "a3", "BodyText", "a4"}
 LOT_KEY = "表格目录"
 LOF_KEY = "插图目录"
 HEADING_PREFIX_RE = re.compile(
@@ -949,14 +950,16 @@ def find_prototypes(body: etree._Element, heading_styles: dict[int, str]) -> Pro
             protos.caption = node
 
         if (
-            protos.normal is None
-            and style_id not in {heading_styles.get(1), heading_styles.get(2), heading_styles.get(3)}
+            style_id not in {heading_styles.get(1), heading_styles.get(2), heading_styles.get(3)}
             and not has_field_seq(node)
             and not is_front_matter_title(text)
             and not is_back_matter_title(text)
             and len(text.strip()) > 5
         ):
-            protos.normal = node
+            if protos.normal is None:
+                protos.normal = node
+            elif extract_style_id(protos.normal) not in BODY_TEXT_STYLES and style_id in BODY_TEXT_STYLES:
+                protos.normal = node
 
     if protos.h1 is None:
         protos.h1 = next((n for n in body if etree.QName(n).localname == "p" and extract_style_id(n) == heading_styles.get(1)), None)
