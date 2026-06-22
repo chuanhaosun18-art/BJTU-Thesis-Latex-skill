@@ -1,6 +1,34 @@
 __pycache__/
-*.pyc
+*.py[cod]
 .DS_Store
-*.egg-info/
-venv/
-.venv/
+
+# Generated thesis workspaces and outputs
+00_project/
+01_template/
+03_chapters/
+04_figures/
+05_tables/
+06_code/
+07_data/
+08_refs/
+09_state/
+10_output/
+
+# LaTeX build artifacts
+*.aux
+*.bbl
+*.blg
+*.log
+*.out
+*.toc
+*.xdv
+*.fls
+*.fdb_latexmk
+*.synctex.gz
+
+# Local scratch files
+tmp/
+temp/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/

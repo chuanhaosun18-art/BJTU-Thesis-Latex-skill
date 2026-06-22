@@ -1,150 +1,210 @@
-# Master Thesis Studio (BJTU)
+# BJTU Thesis Autowriter
 
-Claude Code Skill for writing Beijing Jiaotong University (BJTU) master's thesis.
+面向北京交通大学中文硕士论文的大论文自动写作工作流 Skill。
 
-## Overview
+这个仓库从原来的 `master-thesis-studio-bjtu` 升级为更完整的端到端论文工作台：用户提供项目脚本仓库、论文题目和简要项目介绍后，Skill 可以辅助完成项目材料盘点、证据映射、章节规划、正文初稿、Word 输出、BJTU LaTeX 工程和 PDF 输出。
 
-This skill provides an end-to-end thesis writing workflow for BJTU-style master's theses:
+## 适用场景
 
-- **Reverse parse** an existing `.docx` draft into structured Markdown
-- **Outline planning** and chapter drafting with academic conventions
-- **Formula rendering** via LaTeX-to-OMML conversion (80+ symbols, `\mathcal`, `\mathbb`, `\frac`, sub/superscripts)
-- **Figure/table/equation numbering** with BJTU format (`图X-Y`, `表X-Y`, `(X-Y)`)
-- **Reference management** following GB/T 7714
-- **Safe DOCX generation** through Flat OPC XML pipeline preserving all template styles
+- 根据代码仓库、实验脚本、数据处理流程和结果文件撰写硕士论文。
+- 将已有 Word 草稿反解析为章节 Markdown、图片、表格和公式资产。
+- 生成或续写 30000/35000 字以上中文硕士论文主体内容。
+- 管理论文图、表、公式、参考文献、代码和数据资产。
+- 生成北京交通大学风格 Word 版本。
+- 使用 BJTU LaTeX 模板生成 PDF。
+- 使用 GB/T 7714 风格组织参考文献和 BibTeX。
 
-## BJTU Format Specifics
+## 理想输入
 
-| Item | Format |
-|------|--------|
-| Chapter title | `1 绪论` (Arabic numeral, no "第X章") |
-| Figure caption | `图X-Y` (compact, hyphen separator) |
-| Table caption | `表X-Y` |
-| Equation number | `(X-Y)` |
-| Heading styles | `aff1` / `afff` / `aff9` / `affb` |
-| Body style | `aff3` |
-| Even page header | 北京交通大学硕士学位论文 |
-| References | GB/T 7714 |
+最少只需要：
 
-## Installation
+1. 项目脚本仓库路径或 Git URL；
+2. 论文题目；
+3. 简要项目介绍或课题来源。
 
-Copy this directory to your Claude Code skills folder:
+更完整的输入包括：
 
-```bash
-cp -r master-thesis-studio-bjtu ~/.claude/skills/master-thesis-studio
-```
+- 开题报告、中期报告、已有 Word 草稿或 PDF；
+- 数据集说明、实验日志、结果表、模型配置；
+- 已有图片、表格、公式和参考文献；
+- 学校模板或学院格式要求；
+- 目标输出：Word、LaTeX、PDF，或全部输出。
 
-Or clone and symlink:
+## 核心能力
 
-```bash
-git clone <repo-url> ~/master-thesis-studio-bjtu
-ln -s ~/master-thesis-studio-bjtu ~/.claude/skills/master-thesis-studio
-```
+### 1. 项目仓库到论文证据
 
-## Usage
+Skill 会先扫描仓库，而不是直接写正文。
 
-1. Place your BJTU Word template (or an existing thesis draft) as `01_template/original_template.docx` in your project directory.
-2. In Claude Code, the skill activates automatically for thesis-related tasks.
-3. Use natural language to:
-   - Parse an existing `.docx` into Markdown chapters
-   - Draft or revise chapters
-   - Generate a formatted `.docx` output
-
-## Directory Structure
-
-```
-master-thesis-studio/
-├── SKILL.md                  # Skill definition and instructions
-├── assets/
-│   └── project_state.schema.json
-├── examples/
-│   └── Template.docx         # BJTU thesis template
-├── references/
-│   ├── placeholders.md       # Placeholder syntax reference
-│   ├── reference_rules.md    # GB/T 7714 citation rules
-│   ├── writing_workflow.md   # Writing workflow guide
-│   └── xml_mapping_spec.md   # Word XML mapping spec
-├── scripts/
-│   ├── word_xml_core.py      # Core Word XML engine
-│   ├── flat_opc_converter.py # Flat OPC ↔ DOCX converter
-│   ├── reverse_parse_docx.py # DOCX → Markdown parser
-│   ├── reference_tools.py    # Reference formatting
-│   └── ...                   # Other utilities
-└── templates/
-    ├── project_manifest.md
-    ├── thesis_master_index.md
-    └── ...
-```
-
-## Requirements
-
-- Python 3.12+
-- `lxml` (XML processing)
-- Claude Code CLI
-
-## Credits
-
-Adapted from [master-thesis-studio](https://github.com) for Beijing Jiaotong University format.
-
----
-
-## 中文说明
-
-### 简介
-
-本项目是一个 [Claude Code](https://claude.ai/claude-code) Skill，用于辅助撰写**北京交通大学硕士学位论文**。它提供了从大纲规划、章节撰写到生成符合学校格式要求的 Word 文档的完整工作流。
-
-### 核心功能
-
-- **反向解析**：将已有的 `.docx` 论文草稿解析为结构化 Markdown，方便后续编辑
-- **大纲规划与章节撰写**：支持用自然语言指挥 Claude 起草、修改论文各章节
-- **公式渲染**：LaTeX 公式自动转换为 Word 原生 OMML 格式，支持 80+ 数学符号、`\mathcal`、`\mathbb`、`\frac`、上下标等
-- **图表公式自动编号**：符合北交大格式（`图X-Y`、`表X-Y`、`(X-Y)`）
-- **参考文献管理**：遵循 GB/T 7714 国标格式
-- **安全生成 DOCX**：通过 Flat OPC XML 管线生成 Word 文档，完整保留模板样式
-
-### 北交大格式规范
-
-| 项目 | 格式 |
-|------|------|
-| 章标题 | `1 绪论`（阿拉伯数字，无"第X章"） |
-| 图题 | `图X-Y`（紧凑格式，短横线分隔） |
-| 表题 | `表X-Y` |
-| 公式编号 | `(X-Y)` |
-| 章标题样式 | `aff1`（论文章节标题） |
-| 一级节标题 | `afff`（论文一级节标题） |
-| 二级节标题 | `aff9`（论文二级节标题） |
-| 正文样式 | `aff3` |
-| 偶数页页眉 | 北京交通大学硕士学位论文 |
-| 参考文献 | GB/T 7714 |
-
-### 安装方法
-
-将本仓库克隆到 Claude Code 的 skills 目录：
+内置脚本：
 
 ```bash
-git clone https://github.com/chuanhaosun18-art/master-thesis-studio-bjtu.git
-cp -r master-thesis-studio-bjtu ~/.claude/skills/master-thesis-studio
+python3 scripts/inspect_project_repo.py <repo_path> \
+  --out <project_dir>/09_state/repo_inspection.json \
+  --md <project_dir>/00_project/repo_inspection.md
 ```
 
-或使用符号链接：
+它会生成：
+
+- 文件类型统计；
+- README 预览；
+- 训练、评估、模型、数据、增强、部署和结果相关候选文件；
+- 可用于论文写作的代码、数据、图片和文档资产清单。
+
+后续写作会基于证据表展开，避免把没有依据的功能、实验结果或指标写进论文。
+
+### 2. 中文硕士论文写作组织
+
+项目工作区包含：
+
+```text
+00_project/   项目事实、总索引、决策记录、证据表
+01_template/  Word 原始模板
+03_chapters/  章节计划和章节正文 Markdown
+04_figures/   图片资产
+05_tables/    表格资产
+06_code/      代码资产说明
+07_data/      数据和实验结果说明
+08_refs/      参考文献和检索记录
+09_state/     XML、反解析、结构化状态
+10_output/    生成的 Word 输出
+```
+
+章节正文推荐写入：
+
+```text
+03_chapters/ch01_draft.md
+03_chapters/ch02_draft.md
+...
+```
+
+支持常见硕士论文结构：
+
+```text
+1 绪论
+2 理论基础与研究现状
+3 数据与问题建模
+4 方法设计
+5 实验与结果分析
+6 系统实现或工程应用
+7 总结与展望
+```
+
+### 3. Word/DOCX 工作流
+
+可以从 Word 模板初始化项目：
 
 ```bash
-git clone https://github.com/chuanhaosun18-art/master-thesis-studio-bjtu.git ~/master-thesis-studio-bjtu
-ln -s ~/master-thesis-studio-bjtu ~/.claude/skills/master-thesis-studio
+python3 scripts/init_thesis_workspace.py . --template <docx_path>
 ```
 
-### 使用方法
+可以反解析已有 Word：
 
-1. 将北交大 Word 论文模板放置到项目目录的 `01_template/original_template.docx`
-2. 在 Claude Code 中，该 Skill 会自动识别论文相关任务并激活
-3. 用自然语言与 Claude 交互即可：
-   - "帮我解析这个 Word 论文草稿"
-   - "写一下第二章的理论基础"
-   - "生成 Word 文档"
+```bash
+python3 scripts/reverse_parse_docx.py <project_dir> --docx <user_thesis.docx>
+```
 
-### 环境要求
+可以从 Markdown 写回 Word：
 
-- Python 3.12+
-- `lxml`（XML 处理库）
-- Claude Code CLI
+```bash
+python3 scripts/flat_opc_converter.py toxml 01_template/original_template.docx 01_template/template.flat.xml
+python3 scripts/parse_template_xml.py 01_template/template.flat.xml 09_state/parsed_structure.json
+python3 scripts/apply_markdown_to_xml.py . --out 09_state/current_working.xml
+python3 scripts/build_new_docx.py . --name thesis_draft_v1.docx
+python3 scripts/validate_xml_docx.py .
+```
+
+生成文件只写入 `10_output/`，不会覆盖原始模板。
+
+### 4. BJTU LaTeX/PDF 工作流
+
+仓库内置 BJTU LaTeX 模板资源：
+
+```text
+assets/BJTU-thesis-template/
+```
+
+来源：
+
+```text
+https://github.com/anabioticsoul/BJTU-thesis-template
+```
+
+关键文件：
+
+- `BJTU-thesis.cls`
+- `GBT7714-2005NLang.bst`
+- `schoolName.pdf`
+- `titletoc.sty`
+- `upgreek.sty`
+
+LaTeX/PDF 相关脚本：
+
+```bash
+python3 scripts/init_bjtu_project.py ...
+python3 scripts/migrate_to_bjtu_template.py ...
+python3 scripts/compile_pdf.py --project <latex_project> --copy-to <final.pdf>
+python3 scripts/validate_pdf.py --project <latex_project> --must-contain "参考文献"
+```
+
+参考文献应使用 BibTeX：
+
+```latex
+\bibliography{reference/ref}
+```
+
+模板类文件已经指定：
+
+```latex
+\bibliographystyle{GBT7714-2005NLang}
+```
+
+## 重要原则
+
+- 不编造真实文献。
+- 不编造实验结果、样本量、指标或数据来源。
+- 不覆盖用户原始 Word、LaTeX、代码或数据文件。
+- 对没有依据的内容标记为 `待确认` 或 `待补充`。
+- 技术结论应能追溯到代码、数据、实验日志、图表、文献或用户确认。
+- Word 和 PDF 都是生成物，章节 Markdown 和资产清单应作为主要内容来源。
+
+## Skill 触发方式
+
+在 Codex 中可以这样使用：
+
+```text
+使用 bjtu-thesis-autowriter，根据这个项目仓库、论文题目和项目简介，帮我生成北交大硕士论文初稿。
+```
+
+示例：
+
+```text
+使用 bjtu-thesis-autowriter。
+项目仓库：/path/to/project
+论文题目：基于多尺度残差注意力元学习的风机变桨系统故障诊断方法研究
+项目简介：课题来源于校企合作项目，研究对象为风电机组变桨系统 SCADA 数据和故障日志，目标是实现跨风场小样本故障诊断。
+输出：Word、LaTeX 工程和 PDF。
+```
+
+## 目录说明
+
+```text
+SKILL.md                         Skill 总入口和端到端流程
+agents/openai.yaml               UI 展示元数据
+references/repo_to_thesis_workflow.md
+                                  项目仓库到论文证据的流程
+references/writing_workflow.md   中文硕士论文写作规则
+references/placeholders.md       图表公式引用占位符规则
+references/reference_rules.md    参考文献规则
+references/xml_mapping_spec.md   Word/XML 写回规则
+references/bjtu_latex_workflow.md
+                                  BJTU LaTeX/PDF 输出规则
+scripts/                         Word、LaTeX、仓库扫描和校验脚本
+templates/                       项目 manifest 模板
+examples/Template.docx           默认 Word 模板
+assets/BJTU-thesis-template/     BJTU LaTeX 模板资源
+```
+
+## 当前定位
+
+这个仓库不是单纯的 Word 工具，也不是单纯的 LaTeX 模板工具，而是面向“大论文自动写作”的上层工作流。它把项目仓库、实验资产、论文写作、Word 输出和 BJTU LaTeX/PDF 输出串成一个可持续迭代的流程。

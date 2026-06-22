@@ -159,8 +159,8 @@ if __name__ == "__main__":
 
     if len(sys.argv) != 4:
         print("Usage:")
-        print('  python flat_opc_converter.py toxml  "input.docx" "output.xml"')
-        print('  python flat_opc_converter.py todocx "input.xml"  "output.docx"')
+        print('  python3 flat_opc_converter.py toxml  "input.docx" "output.xml"')
+        print('  python3 flat_opc_converter.py todocx "input.xml"  "output.docx"')
         sys.exit(1)
 
     mode, src, dst = sys.argv[1].lower(), sys.argv[2], sys.argv[3]
