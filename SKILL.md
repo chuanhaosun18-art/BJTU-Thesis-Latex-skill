@@ -1,11 +1,11 @@
 ---
 name: bjtu-thesis-autowriter
-description: End-to-end Beijing Jiaotong University Chinese master's thesis workflow from a project code/script repository, thesis title, and short project description to a substantial thesis draft, Word DOCX, BJTU LaTeX project, PDF, BibTeX references, figures, formulas, and validation. Use when the user asks to write, plan, expand, revise, or generate a BJTU/北交大 master's thesis or long report from repositories, experiment scripts, datasets, notes, Word drafts, or LaTeX templates, especially when they want most of a 30000+ or 35000+ Chinese thesis drafted with citations and BJTU formatting.
+description: Beijing Jiaotong University school LaTeX-template-based Chinese master's thesis autowriter. It uses the bundled BJTU-thesis-template, BJTU-thesis.cls, GBT7714-2005NLang.bst, BibTeX, and PDF validation as the primary output path, while also supporting Word/DOCX drafts. Use when the user asks to write, plan, expand, revise, or generate a BJTU/北交大 master's thesis or long report from project repositories, experiment scripts, datasets, notes, Word drafts, or LaTeX templates, especially for 30000+ or 35000+ Chinese theses with citations and BJTU formatting.
 ---
 
 # BJTU Thesis Autowriter
 
-This skill is the end-to-end thesis layer. It combines:
+This skill is the end-to-end thesis layer built around the Beijing Jiaotong University LaTeX thesis template. It combines:
 
 - project/repository understanding and evidence mapping;
 - Chinese master's thesis planning and drafting;

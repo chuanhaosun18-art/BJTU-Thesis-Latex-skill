@@ -1,8 +1,8 @@
 # BJTU Thesis Autowriter
 
-以北京交通大学 LaTeX 学位论文模板为核心的大论文自动写作工作流 Skill。
+以北京交通大学学校 LaTeX 学位论文模板为核心的大论文自动写作 Skill。
 
-本仓库内置并围绕 `https://github.com/anabioticsoul/BJTU-thesis-template` 组织工作流，目标是把“项目脚本仓库、论文题目、简要项目介绍”转化为可持续迭代的北京交通大学硕士论文工程。它不仅能辅助完成项目材料盘点、证据映射、章节规划和正文初稿，还会优先生成符合 BJTU LaTeX 模板结构的工程、PDF 和 BibTeX 参考文献；Word/DOCX 则作为过程稿、反解析和辅助交付格式。
+本仓库是一个 **基于北京交通大学学校 LaTeX 模板的 thesis skill**：内置并围绕 `https://github.com/anabioticsoul/BJTU-thesis-template` 组织工作流，目标是把“项目脚本仓库、论文题目、简要项目介绍”转化为可持续迭代的北京交通大学硕士论文工程。它不仅能辅助完成项目材料盘点、证据映射、章节规划和正文初稿，还会优先生成符合 BJTU LaTeX 模板结构的工程、PDF 和 BibTeX 参考文献；Word/DOCX 则作为过程稿、反解析和辅助交付格式。
 
 换句话说，这个 Skill 的主线不是“普通 Word 论文生成器”，而是 **BJTU LaTeX 模板驱动的论文写作、排版、编译和校验工作台**。
 
