@@ -1,4 +1,4 @@
-# BJTU Thesis Autowriter
+# BJTU Master Thesis Skill — 北京交通大学硕士学位论文 AI 写作、LaTeX 排版与校验
 
 以北京交通大学学校 LaTeX 学位论文模板为核心的大论文自动写作 Skill。
 
